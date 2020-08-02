@@ -6,9 +6,8 @@ if (mysqli_connect_errno()) {
     die();
 } else {
     echo "connected to database";
+
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -19,14 +18,14 @@ if (mysqli_connect_errno()) {
     <meta charset="utf-8">
     <link rel='stylesheet' type='text/css' href='canteen.css'
 
-</head>
+    </head>
 
 <div class="section">
     <div class="container5">
-        <h1>Items</h1>
+        <h1>WGC Canteen</h1>
         <nav>
             <ul>
-                <a href='index.php'> HOME </a>
+                <a href='home.php'> HOME </a>
                 <a href='items.php'> ITEMS </a>
                 <a href='canteen_drinks.php'> DRINKS </a>
                 <a href='weekly_specials.php'> WEEKLY SPECIALS </a>
@@ -51,13 +50,13 @@ if (mysqli_connect_errno()) {
 
         <img class="center w80" src="houseicon.png" alt=" white house icon">
 
-        <h3>About us</h3>
+        <h3>Item</h3>
 
-        <p>Central Cafe came together with an idea to create a laid back and cozy environment fror anyone to break away from the buzz of work and the city. Perfect for a relaxed lunch with the gang a work or a nice lunch with the family. We're open 24 hours so there's never a bad time to pop in for a cup of coffee!</p>
+        <p>At the WGC Canteen we make sure that we have a range of different foods to for lunch or easy to eat snacks for a quick bite. We try and do our best to make sure that we cater to all dietary requirements so everyone can have an enjoyable lunch at the canteen!</p>
 
         <div class="container6">
             <nav>
-                <a href="aboutus.html">Our Story >></a>
+                <a href="items.php">View the full menu! >></a>
             </nav>
         </div>
 
@@ -73,7 +72,7 @@ if (mysqli_connect_errno()) {
         <img class="center w80" src="pinicon.png" alt=" white location pin icon">
 
 
-        <h2>Location</h2>
+        <h2>Drinks</h2>
 
         <p>Our cafe is loacted in a cozy corner, in the heart of Wellington if town just a few metres away from the hustle and bustle of the city. Not too far, but not too close either!</p>
 
@@ -92,7 +91,7 @@ if (mysqli_connect_errno()) {
 
             <img class="center w80" src="coffeeicon.png" alt="white coffee cup icon">
 
-            <h4>Menu</h4>
+            <h4>Weekly Specials</h4>
 
             <p>We provide a range of different meals to suit your everyday needs. A quick on the go breakfast, lunch with the family or collegues or a warm drink to start the day. We have meals to satisfy all ages, don't worry we've got everything covered!</p>
 
