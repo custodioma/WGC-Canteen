@@ -1,6 +1,6 @@
 <?php
 
-$con = mysqli_connect("localhost", "custodioma", "bentsun82", "custodioma_cafe1");
+$con = mysqli_connect("localhost", "custodioma", "bentsun82", "custodioma_canteen1");
 if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL:" . mysqli_connect_error();
     die();
@@ -8,6 +8,13 @@ if (mysqli_connect_errno()) {
     echo "connected to database";
 
 }
+
+$all_items_query = "SELECT ItemID, PName, Cost, Calories, Stock, Description FROM items";
+$all_items_result = mysqli_query($con, $all_items_query);
+
+$all_drinks_query = "SELECT DrinkID, PName, Cost, Calories, Stock, Description FROM drinks";
+$all_drinks_result = mysqli_query($con, $all_drinks_query);
+
 ?>
 
 <!DOCTYPE html>
@@ -44,20 +51,30 @@ if (mysqli_connect_errno()) {
 </div>
 </div>
 
-<div class="section divider-home"></div>
+<div class="section divider-location"></div>
 <div class="section">
     <div class="container">
 
-        <img class="center w80" src="houseicon.png" alt=" white house icon">
+        <h2>Items</h2>
 
-        <h3>Item</h3>
+        <main>
+        <form name='items_form' id='items_form' method = 'get' action = 'items.php'>
+            <select id = 'item' name = 'item'>
+                <?php
+                while($all_items_record = mysqli_fetch_assoc($all_items_result)){
+                    echo "<option value = '". $all_items_record['ItemID']. "'>";
+                    echo $all_items_record['PName'];
+                    echo "</option>";
+                }
+                ?>
 
-        <p>At the WGC Canteen we make sure that we have a range of different foods to for lunch or easy to eat snacks for a quick bite. We try and do our best to make sure that we cater to all dietary requirements so everyone can have an enjoyable lunch at the canteen!</p>
+            </select>
+
+            <input type='submit' name='items_button' value='show me the item information'>
+        </form>
+        </main>
 
         <div class="container6">
-            <nav>
-                <a href="items.php">View the full menu! >></a>
-            </nav>
         </div>
 
     </div>
@@ -68,40 +85,28 @@ if (mysqli_connect_errno()) {
 <div class="section">
     <div class="container">
 
-
-        <img class="center w80" src="pinicon.png" alt=" white location pin icon">
-
-
         <h2>Drinks</h2>
 
-        <p>Our cafe is loacted in a cozy corner, in the heart of Wellington if town just a few metres away from the hustle and bustle of the city. Not too far, but not too close either!</p>
+        <main>
+            <form name='drinks_form' id='drinks_form' method = 'get' action = 'canteen_drinks.php'>
+                <select id = 'drink' name = 'drink'>
+                    <?php
+                    while($all_drinks_record = mysqli_fetch_assoc($all_drinks_result)){
+                        echo "<option value = '". $all_drinks_record['DrinkID']. "'>";
+                        echo $all_drinks_record['PName'];
+                        echo "</option>";
+                    }
+                    ?>
 
-        <div class="container3">
-            <nav>
-                <a href="location.html">Where to find us >></a>
-            </nav>
+                </select>
+
+                <input type='submit' name='drinks_button' value='show me the drinks information'>
+            </form>
+        </main>
         </div>
 
     </div>
 
-    <div class="section divider-menu"></div>
-    <div class="section">
-        <div class="container">
 
-
-            <img class="center w80" src="coffeeicon.png" alt="white coffee cup icon">
-
-            <h4>Weekly Specials</h4>
-
-            <p>We provide a range of different meals to suit your everyday needs. A quick on the go breakfast, lunch with the family or collegues or a warm drink to start the day. We have meals to satisfy all ages, don't worry we've got everything covered!</p>
-
-            <div class="container4">
-                <nav>
-                    <a href="menu.html">View our menu >></a>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
 </html>
 

@@ -1,12 +1,19 @@
 <?php
 
-$con = mysqli_connect("localhost", "custodioma", "bentsun82", "custodioma_cafe1");
-if (mysqli_connect_errno()) {
-    echo "Failed to connect to MySQL:" . mysqli_connect_error();
-    die();
-} else {
-    echo "connected to database";
+$con = mysqli_connect("localhost", "custodioma", "bentsun82", "custodioma_canteen1");
+if(isset($_GET['drink'])){
+    $id = $_GET['drink'];
+}else{
+    $id = 1;
 }
+
+$this_drink_query = "SELECT PName, Cost, Calories, Stock, Description FROM drinks WHERE DrinkID = '" .$id ."'";
+$this_drink_result = mysqli_query($con, $this_drink_query);
+$this_drink_record = mysqli_fetch_assoc($this_drink_result);
+
+$all_drinks_query = "SELECT DrinkID, PName, Cost, Calories, Stock, Description FROM drinks";
+$all_drinks_result = mysqli_query($con, $all_drinks_query);
+
 
 ?>
 
@@ -44,64 +51,68 @@ if (mysqli_connect_errno()) {
 </div>
 </div>
 
-<div class="section divider-home"></div>
+
 <div class="section">
     <div class="container">
 
-        <img class="center w80" src="houseicon.png" alt=" white house icon">
+        <main>
+            <h2>Drink Information</h2>
+            <?php
+            echo "<p> Item Name:". $this_drink_record['PName']."<br>";
+            echo "<p> Cost:".$this_drink_record['Cost']."<br>";
+            echo "<p> Calories:".$this_drink_record['Calories']."<br>";
+            echo "<p> Stock:".$this_drink_record['Stock']."<br>";
+            echo "<p> Description:".$this_drink_record['Description']."<br>";
 
-        <h3>About us</h3>
+            ?>
 
-        <p>Central Cafe came together with an idea to create a laid back and cozy environment fror anyone to break away from the buzz of work and the city. Perfect for a relaxed lunch with the gang a work or a nice lunch with the family. We're open 24 hours so there's never a bad time to pop in for a cup of coffee!</p>
+        </main>
 
-        <div class="container6">
-            <nav>
-                <a href="aboutus.html">Our Story >></a>
-            </nav>
-        </div>
+        <main>
+            <h2>Select another drink</h2>
+            <form name='drinks_form' id='drinks_form' method='get' action='drinks.php'>
+                <select id='drink' name='drink'>
+                    <!--options-->
+                    <?php
+                    while($all_drinks_record = mysqli_fetch_assoc($all_drinks_result)){
+                        echo "<option value = '".$all_drinks_record['DrinkID']."'>";
+                        echo $all_drinks_record['PName'];
+                        echo"</option>";
+                    }
+                    ?>
+                </select>
+                <input type='submit' name='drinks_button' value='Show me the drink information'>
+            </form>
 
-    </div>
+        <main>
+            <h2>Select a Drink</h2>
 
-</div>
+            <form action = "" method="post">
+                <input type="text" name='search'>
+                <input type="submit" name="submit" value="Search">
+            </form>
+        </main>
 
-<div class="section divider-location"></div>
-<div class="section">
-    <div class="container">
+        <?php
 
+        if(isset($_POST['search'])){
+            $search = $_POST['search'];
 
-        <img class="center w80" src="pinicon.png" alt=" white location pin icon">
+            $query1 = "SELECT * FROM drinks WHERE PName LIKE '%$search%'";
+            $query = mysqli_query($con, $query1);
+            $count = mysqli_num_rows($query);
 
+            if($count == 0){
+                echo "There was no search results!";
+            }else{
 
-        <h2>Location</h2>
+                while ($row = mysqli_fetch_array($query)) {
 
-        <p>Our cafe is loacted in a cozy corner, in the heart of Wellington if town just a few metres away from the hustle and bustle of the city. Not too far, but not too close either!</p>
+                    echo $row ['PName'];
+                    echo"<br>";
+                }
+            }
+        }
+        ?>
 
-        <div class="container3">
-            <nav>
-                <a href="location.html">Where to find us >></a>
-            </nav>
-        </div>
-
-    </div>
-
-    <div class="section divider-menu"></div>
-    <div class="section">
-        <div class="container">
-
-
-            <img class="center w80" src="coffeeicon.png" alt="white coffee cup icon">
-
-            <h4>Menu</h4>
-
-            <p>We provide a range of different meals to suit your everyday needs. A quick on the go breakfast, lunch with the family or collegues or a warm drink to start the day. We have meals to satisfy all ages, don't worry we've got everything covered!</p>
-
-            <div class="container4">
-                <nav>
-                    <a href="menu.html">View our menu >></a>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
-</html>
 
