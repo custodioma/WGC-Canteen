@@ -14,6 +14,9 @@ $this_drink_record = mysqli_fetch_assoc($this_drink_result);
 $all_drinks_query = "SELECT DrinkID, PName, Cost, Calories, Stock, Description FROM drinks";
 $all_drinks_result = mysqli_query($con, $all_drinks_query);
 
+$drinks_AtoZ = "SELECT * FROM drinks ORDER BY PName ASC";
+$drinks_low_to_high = "SELECT * FROM drinks ORDER BY Cost ASC";
+
 
 ?>
 
@@ -42,15 +45,6 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
 </div>
 
 <body>
-<header>
-
-</header>
-
-<hr>
-</nav>
-</div>
-</div>
-
 
 <div class="section">
     <div class="container">
@@ -114,5 +108,66 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
             }
         }
         ?>
+
+            <h2> Drinks Available</h2>
+
+            <form action="canteen_drinks.php" method="post">
+                <input type='submit' name='drinks_AtoZ' value="From A-Z">
+                <input type='submit' name='drinks_low_to_high' value="Low to High">
+            </form>
+
+
+            <table style="width:100%">
+                <tr>
+                    <th>Item Name</th>
+                    <th>Cost</th>
+                    <th>Calories</th>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            <?php
+            if(isset($_POST['drinks_AtoZ']))
+            {
+                $result=mysqli_query($con, "SELECT * FROM drinks ORDER BY PName ASC");
+                if(mysqli_num_rows($result)!=0)
+                {
+                    while($test = mysqli_fetch_array($result))
+                    {
+                        $id = $test['DrinkID'];
+                        echo"<tr>";
+                        echo "<td>". $test['PName']. "</td>";
+                        echo "<td>". $test['Cost']. "</td>";
+                        echo "<td>". $test['Calories']. "</td>";
+                        echo "</tr>";
+                    }
+                }
+            }
+            ?>
+
+            <?php
+            if(isset($_POST['drinks_low_to_high']))
+            {
+                $result=mysqli_query($con, "SELECT * FROM drinks ORDER BY Cost ASC");
+                if(mysqli_num_rows($result)!=0)
+                {
+                    while($test = mysqli_fetch_array($result))
+                    {
+                        $id = $test['DrinkID'];
+                        echo"<tr>";
+                        echo "<td>". $test['PName']. "</td>";
+                        echo "<td>". $test['Cost']. "</td>";
+                        echo "<td>". $test['Calories']. "</td>";
+                        echo "</tr>";
+                    }
+                }
+            }
+            ?>
+            </table>
+        </main>
+    </div>
+</div>
+</body>
+</html>
 
 
