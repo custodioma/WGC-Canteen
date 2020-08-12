@@ -1,12 +1,18 @@
 <?php
 
-$con = mysqli_connect("localhost", "custodioma", "bentsun82", "custodioma_cafe1");
-if (mysqli_connect_errno()) {
-    echo "Failed to connect to MySQL:" . mysqli_connect_error();
-    die();
+$con = mysqli_connect("localhost", "custodioma", "bentsun82", "custodioma_canteen1");
+if (isset($_GET['special'])) {
+    $id = $_GET['special'];
 } else {
-    echo "connected to database";
+    $id = 1;
 }
+
+$this_specials_query = "SELECT DayID, ItemID FROM weekly specials WHERE ItemID = '" . $id . "'";
+$this_specials_result = mysqli_query($con, $this_specials_query);
+$this_specials_record = mysqli_fetch_assoc($this_specials_result);
+
+$all_specials_query = "SELECT DayID, ItemID FROM weekly specials";
+$all_specials_result = mysqli_query($con, $all_specials_query);
 
 
 ?>
@@ -45,64 +51,126 @@ if (mysqli_connect_errno()) {
 </div>
 </div>
 
-<div class="section divider-home"></div>
 <div class="section">
-    <div class="container">
 
-        <img class="center w80" src="houseicon.png" alt=" white house icon">
+    </main>
 
-        <h3>About us</h3>
+    <h2>Select a Day:</h2>
 
-        <p>Central Cafe came together with an idea to create a laid back and cozy environment fror anyone to break away from the buzz of work and the city. Perfect for a relaxed lunch with the gang a work or a nice lunch with the family. We're open 24 hours so there's never a bad time to pop in for a cup of coffee!</p>
+    <main>
+        <form action="weekly_specials.php" method="post">
+            <input type='submit' name='monday_special' value="Monday">
+            <input type='submit' name='tuesday_special' value="Tuesday">
+            <input type='submit' name='wednesday_special' value="Wednesday">
+            <input type='submit' name='thursday_special' value="Thursday">
+            <input type='submit' name='friday_special' value="Friday">
+        </form>
 
-        <div class="container6">
-            <nav>
-                <a href="aboutus.html">Our Story >></a>
-            </nav>
-        </div>
+        <table style="width:80%">
+            <tr>
+                <th>Weekday</th>
+                <th>Item Special</th>
+                <th>Drink Special</th>
+            </tr>
 
-    </div>
+            <?php
+            if (isset($_POST['monday_special'])) {
+                $result = mysqli_query($con, "SELECT specials.DayID, items.IName, drinks.DName
+                FROM specials, items, drinks WHERE specials.DayID = 'MON'
+                AND items.ItemID = specials.ItemID
+                AND drinks.DrinkID = specials.DrinkID");
+                if (mysqli_num_rows($result) != 0) {
+                    while ($test = mysqli_fetch_array($result)) {
+                        $id = $test['DayID'];
+                        echo "<tr>";
+                        echo "<td>" . $test['DayID'] . "</td>";
+                        echo "<td>" . $test['IName'] . "</td>";
+                        echo "<td>" . $test['DName'] . "</td>";
+                        echo "</tr>";
+                    }
+                }
+            }
+            ?>
 
+            <?php
+            if (isset($_POST['tuesday_special'])) {
+                $result = mysqli_query($con, "SELECT specials.DayID, items.IName, drinks.DName
+                FROM specials, items, drinks WHERE specials.DayID = 'TUE'
+                AND items.ItemID = specials.ItemID
+                AND drinks.DrinkID = specials.DrinkID");
+                if (mysqli_num_rows($result) != 0) {
+                    while ($test = mysqli_fetch_array($result)) {
+                        $id = $test['DayID'];
+                        echo "<tr>";
+                        echo "<td>" . $test['DayID'] . "</td>";
+                        echo "<td>" . $test['IName'] . "</td>";
+                        echo "<td>" . $test['DName'] . "</td>";
+                        echo "</tr>";
+                    }
+                }
+            }
+            ?>
+
+            <?php
+            if (isset($_POST['wednesday_special'])) {
+                $result = mysqli_query($con, "SELECT specials.DayID, items.IName, drinks.DName
+                FROM specials, items, drinks WHERE specials.DayID = 'WED'
+                AND items.ItemID = specials.ItemID
+                AND drinks.DrinkID = specials.DrinkID");
+                if (mysqli_num_rows($result) != 0) {
+                    while ($test = mysqli_fetch_array($result)) {
+                        $id = $test['DayID'];
+                        echo "<tr>";
+                        echo "<td>" . $test['DayID'] . "</td>";
+                        echo "<td>" . $test['IName'] . "</td>";
+                        echo "<td>" . $test['DName'] . "</td>";
+                        echo "</tr>";
+                    }
+                }
+            }
+            ?>
+
+            <?php
+            if (isset($_POST['thursday_special'])) {
+                $result = mysqli_query($con, "SELECT specials.DayID, items.IName, drinks.DName
+                FROM specials, items, drinks WHERE specials.DayID = 'THU'
+                AND items.ItemID = specials.ItemID
+                AND drinks.DrinkID = specials.DrinkID");
+                if (mysqli_num_rows($result) != 0) {
+                    while ($test = mysqli_fetch_array($result)) {
+                        $id = $test['DayID'];
+                        echo "<tr>";
+                        echo "<td>" . $test['DayID'] . "</td>";
+                        echo "<td>" . $test['IName'] . "</td>";
+                        echo "<td>" . $test['DName'] . "</td>";
+                        echo "</tr>";
+                    }
+                }
+            }
+            ?>
+
+            <?php
+            if (isset($_POST['friday_special'])) {
+                $result = mysqli_query($con, "SELECT specials.DayID, items.IName, drinks.DName
+                FROM specials, items, drinks WHERE specials.DayID = 'FRI'
+                AND items.ItemID = specials.ItemID
+                AND drinks.DrinkID = specials.DrinkID");
+                if (mysqli_num_rows($result) != 0) {
+                    while ($test = mysqli_fetch_array($result)) {
+                        $id = $test['DayID'];
+                        echo "<tr>";
+                        echo "<td>" . $test['DayID'] . "</td>";
+                        echo "<td>" . $test['IName'] . "</td>";
+                        echo "<td>" . $test['DName'] . "</td>";
+                        echo "</tr>";
+                    }
+                }
+            }
+            ?>
+
+
+    </main>
 </div>
-
-<div class="section divider-location"></div>
-<div class="section">
-    <div class="container">
-
-
-        <img class="center w80" src="pinicon.png" alt=" white location pin icon">
-
-
-        <h2>Location</h2>
-
-        <p>Our cafe is loacted in a cozy corner, in the heart of Wellington if town just a few metres away from the hustle and bustle of the city. Not too far, but not too close either!</p>
-
-        <div class="container3">
-            <nav>
-                <a href="location.html">Where to find us >></a>
-            </nav>
-        </div>
-
-    </div>
-
-    <div class="section divider-menu"></div>
-    <div class="section">
-        <div class="container">
-
-
-            <img class="center w80" src="coffeeicon.png" alt="white coffee cup icon">
-
-            <h4>Menu</h4>
-
-            <p>We provide a range of different meals to suit your everyday needs. A quick on the go breakfast, lunch with the family or collegues or a warm drink to start the day. We have meals to satisfy all ages, don't worry we've got everything covered!</p>
-
-            <div class="container4">
-                <nav>
-                    <a href="menu.html">View our menu >></a>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
+</body>
 </html>
 
