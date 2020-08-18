@@ -43,17 +43,17 @@ $items_out_of_stock = "SELECT * FROM drinks WHERE stock = 0";
 </head>
 
 <div class="section_header">
-        <h1>Drinks</h1>
-        </div>
-        <nav>
-            <ul>
-                <a href='index.php'> HOME </a>
-                <a href='items.php'> ITEMS </a>
-                <a href='canteen_drinks.php'> DRINKS </a>
-                <a href='weekly_specials.php'> WEEKLY SPECIALS </a>
-            </ul>
-        </nav>
-    </div>
+    <h1>Drinks</h1>
+</div>
+<nav>
+    <ul>
+        <a href='index.php'> HOME </a>
+        <a href='items.php'> ITEMS </a>
+        <a href='canteen_drinks.php'> DRINKS </a>
+        <a href='weekly_specials.php'> WEEKLY SPECIALS </a>
+    </ul>
+</nav>
+</div>
 </div>
 
 <body>
@@ -61,45 +61,48 @@ $items_out_of_stock = "SELECT * FROM drinks WHERE stock = 0";
 <div class="section">
 
 
-        <main>
-            <h2>Drink Information</h2>
-            <?php
-            echo "<p> Item Name: " . $this_drink_record['DName'] . "<br>";
-            echo "<p> Cost:$ " . $this_drink_record['Cost'] . "<br>";
-            echo "<p> Calories: " . $this_drink_record['Calories'] . "<br>";
-            echo "<p> Stock: " . $this_drink_record['Stock'] . "<br>";
-            echo "<p> Description: " . $this_drink_record['Description'] . "<br>";
+    <main>
+        <h2>Drink Information</h2>
+        <?php
+        echo "<p> Item Name: " . $this_drink_record['DName'] . "<br>";
+        echo "<p> Cost:$ " . $this_drink_record['Cost'] . "<br>";
+        echo "<p> Calories: " . $this_drink_record['Calories'] . "<br>";
+        echo "<p> Stock: " . $this_drink_record['Stock'] . "<br>";
+        echo "<p> Description: " . $this_drink_record['Description'] . "<br>";
 
-            ?>
+        ?>
 
+        <hr>
 
+        <h2>Select another drink</h2>
+        <p> Select another item to view the display its information above!</p>
+        <form name='drinks_form' id='drinks_form' method='get' action='canteen_drinks.php'>
+            <select id='drink' name='drink'>
+                <!--options-->
+                <?php
+                while ($all_drinks_record = mysqli_fetch_assoc($all_drinks_result)) {
+                    echo "<option value = '" . $all_drinks_record['DrinkID'] . "'>";
+                    echo $all_drinks_record['DName'];
+                    echo "</option>";
+                }
+                ?>
+            </select>
+            <input type='submit' name='drinks_button' value='Show me the drink information'>
+        </form>
 
+        <br>
+        <br>
 
-            <h2>Select another drink</h2>
-            <br>
-            <form name='drinks_form' id='drinks_form' method='get' action='canteen_drinks.php'>
-                <select id='drink' name='drink'>
-                    <!--options-->
-                    <?php
-                    while ($all_drinks_record = mysqli_fetch_assoc($all_drinks_result)) {
-                        echo "<option value = '" . $all_drinks_record['DrinkID'] . "'>";
-                        echo $all_drinks_record['DName'];
-                        echo "</option>";
-                    }
-                    ?>
-                </select>
-                <input type='submit' name='drinks_button' value='Show me the drink information'>
-            </form>
-            <br>
+<hr>
 
+        <h2>Search a Drink</h2>
+        <p>Search a drink to see if we have it!</p>
 
-                <h2>Search a Drink</h2>
-
-                <form action="" method="post">
-                    <input type="text" name='search'>
-                    <input type="submit" name="submit" value="Search">
-                </form>
-            </main>
+        <form action="" method="post">
+            <input type="text" name='search'>
+            <input type="submit" name="submit" value="Search">
+        </form>
+    </main>
 
 
     <?php

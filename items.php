@@ -82,8 +82,11 @@ $items_out_of_stock = "SELECT * FROM items WHERE stock = 0";
         ?>
     </div>
 
+<hr>
+
     <main>
         <h2>Select another item</h2>
+        <p> Select another item to view the display its information above!</p>
         <br>
         <form name='items_form' id='items_form' method='get' action='items.php'>
             <select id='item' name='item'>
@@ -100,7 +103,10 @@ $items_out_of_stock = "SELECT * FROM items WHERE stock = 0";
         </form>
         <br>
 
+        <hr>
+
             <h2>Search an Item</h2>
+        <p> Search an item to see if we serve it at the canteen</p>
 
             <form action="" method="post">
                 <input type="text" name='search'>
